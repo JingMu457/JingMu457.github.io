@@ -70,44 +70,44 @@
         <p><strong>Spark-Standalone-HA模式</strong></p>
 <p><strong>（Master-Slave模型很容易出现单节点故障的问题。所以为了应用这个问题，解决办法是通过Zookeeper来解决，在实际开发的时候一般都是三台，一个active，两个standby，当一个active挂掉后，Zookeeper会根据自己的选举机制，从standby的Master选举出来一个作为leader。这个leader从standby模式变成active模式的话，做的最重要的事）</strong></p>
 <p>进入 &#x2F;export&#x2F;server&#x2F;spark&#x2F;conf 文件夹 编辑vim spark-env.sh</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/34f543624fee6a109d1efd62cc5b7988.png"></p>
+<p><img src="/Photo/34f543624fee6a109d1efd62cc5b7988.png"></p>
 <p>添加内容，在第83行：SPARK_DAEMON_JAVA_OPTS&#x3D;”-Dspark.deploy.recoveryMode&#x3D;ZOOKEEPER -</p>
 <p>Dspark.deploy.zookeeper.url&#x3D;master:2181,slave1:2181,slave2:2181 -</p>
 <p>Dspark.deploy.zookeeper.dir&#x3D;&#x2F;spark-ha”</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/7e94a2fab5241d0d5391da0b8ab4101b.png"></p>
+<p><img src="/Photo/7e94a2fab5241d0d5391da0b8ab4101b.png"></p>
 <p>分发 spark-env.sh 到 node1 和 node2 上</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/f116253b66f919e9f5e6e3501ec1d951.png"></p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/c810343e2a98065de9506db7e4fefb5e.png"></p>
+<p><img src="/Photo/f116253b66f919e9f5e6e3501ec1d951.png"></p>
+<p><img src="/Photo/c810343e2a98065de9506db7e4fefb5e.png"></p>
 <p>启动之前确保 Zookeeper 和 HDFS 均已经启动</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/3ce7144c13c5ac9986a37244ff793fc2.png"></p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/9c4b8407bbcdd1a6c7bb35436c3810bc.png"></p>
+<p><img src="/Photo/3ce7144c13c5ac9986a37244ff793fc2.png"></p>
+<p><img src="/Photo/9c4b8407bbcdd1a6c7bb35436c3810bc.png"></p>
 <p>下面命令在 node1 上执行 启动 node2 上的 node1 做备用 master</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/37d0618286374147d8b86a286b990a59.png"></p>
+<p><img src="/Photo/37d0618286374147d8b86a286b990a59.png"></p>
 <p>两台结果显示</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/149290a59ce7532315fb4d23f8c83012.png"></p>
+<p><img src="/Photo/149290a59ce7532315fb4d23f8c83012.png"></p>
 <p>访问WebUI界面，查看node1和node2的状态，可以看到node1的状态为ALIVE，node2状态为STANDBY</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/02de6e98bd30416e5b49e9fa116720ff.png"></p>
+<p><img src="/Photo/02de6e98bd30416e5b49e9fa116720ff.png"></p>
 <p>删除掉node1上master的16551进程号，jps查看端口是否删除，然后重新启动查看。</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/796bb9b5e23c4c600a544ea2e5b80b83.png"></p>
+<p><img src="/Photo/796bb9b5e23c4c600a544ea2e5b80b83.png"></p>
 <p>Spark（Yarn）</p>
 <p>（速度超快。</p>
 <p>Yarn 缓存了每个下载过的包，所以再次使用时无需重复下载。 同时利用并行下载以最大化资源利用率，因此安装速度更快。</p>
 <p>超级安全。在执行代码之前，Yarn 会通过算法校验每个安装包的完整性。超级可靠。使用详细、简洁的锁文件格式和明确的安装算法，Yarn 能够保证在不同系统上无差别的工作）</p>
 <p>查看&#x2F;export&#x2F;server&#x2F;spark&#x2F;conf&#x2F;下的spark-env.sh文件 查看配置 并且添加内容</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/2e00293442e03a108469d437c5be037f.png"></p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/0c804e542b370d7e910a825e089aca45.png"></p>
+<p><img src="/Photo/2e00293442e03a108469d437c5be037f.png"></p>
+<p><img src="/Photo/0c804e542b370d7e910a825e089aca45.png"></p>
 <p>把spark链接到yarn中</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/0860ac4392981be66c5e72b42e59d5a4.png"></p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/0860ac4392981be66c5e72b42e59d5a4.png"></p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/3cb0c8eedde8c58f5a85eaaed1555a82.png"></p>
+<p><img src="/Photo/0860ac4392981be66c5e72b42e59d5a4.png"></p>
+<p><img src="/Photo/0860ac4392981be66c5e72b42e59d5a4.png"></p>
+<p><img src="/Photo/3cb0c8eedde8c58f5a85eaaed1555a82.png"></p>
 <p>Client测试</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/7c6fe913202aeaffba2f60dfb1dafede.png"></p>
+<p><img src="/Photo/7c6fe913202aeaffba2f60dfb1dafede.png"></p>
 <p>Cluster测试</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/9bd3fac2c65861f70d3865399083b758.png"></p>
+<p><img src="/Photo/9bd3fac2c65861f70d3865399083b758.png"></p>
 <p>启动 YARN 的历史服务器</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/27f360f448aed02630415954993a395c.png"></p>
+<p><img src="/Photo/27f360f448aed02630415954993a395c.png"></p>
 <p>访问WebUI界面，查看运行状况</p>
-<p><img src="/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/b9df8facc9700c2caadcb2bbe883656d.png"></p>
+<p><img src="/Photo/b9df8facc9700c2caadcb2bbe883656d.png"></p>
 
       
     </div>
@@ -126,7 +126,7 @@
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          《Spark基础环境配置》
+          Photo
         
       </div>
     </a>
@@ -163,7 +163,7 @@
       <ul>
         
           <li>
-            <a href="/2022/05/23/%E3%80%8ASpark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%8B/">《Spark基础环境配置》</a>
+            <a href="/2022/05/23/%E3%80%8ASpark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%8B/">Photo</a>
           </li>
         
           <li>

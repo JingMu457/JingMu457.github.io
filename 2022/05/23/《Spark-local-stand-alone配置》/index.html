@@ -78,26 +78,26 @@
 <li>上传Anaconda3-2021.05-Linux-x86_64.sh文件到虚拟机&#x2F;export&#x2F;server&#x2F;目录下；</li>
 </ol>
 <p>使用cd命令进入到&#x2F;export&#x2F;server&#x2F;下，随后sh执行Anaconda3-2021.05-Linux-x86_64.sh</p>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/90bdc480990c5520aa36772dddab03ee.png"></p>
+<p><img src="/Photo/90bdc480990c5520aa36772dddab03ee.png"></p>
 <p>在遇到Do you accept the license terms? [yes | no]时，选择yes</p>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/10729695ad9cfea78ede27382af5926f.png"></p>
+<p><img src="/Photo/10729695ad9cfea78ede27382af5926f.png"></p>
 <ol>
 <li>在上述命令回车后，会让你选择你想要安装的路径，统一安装在&#x2F;export&#x2F;server&#x2F;anaconda3下；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/e36901bc4869cb948106a3c9ea2166ee.png"></p>
+<p><img src="/Photo/e36901bc4869cb948106a3c9ea2166ee.png"></p>
 <ol>
 <li>等待执行完毕后，在新的[yes|no]选择界面选择yes；</li>
 </ol>
 <p>随后exit退出重新登录即可看到base，代表着安装完成；</p>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/90bdc480990c5520aa36772dddab03ee.png"></p>
+<p><img src="/Photo/90bdc480990c5520aa36772dddab03ee.png"></p>
 <ol>
 <li>创建虚拟环境pyspark，基于Python 3.8；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/8c7ea5b4cc31baf87c183e11cc32e0e0.png"></p>
+<p><img src="/Photo/8c7ea5b4cc31baf87c183e11cc32e0e0.png"></p>
 <ol>
 <li>切换到虚拟环境内；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/acfb46638b0d8c5e0a8544d8f8521d4f.png"></p>
+<p><img src="/Photo/acfb46638b0d8c5e0a8544d8f8521d4f.png"></p>
 <ol>
 <li>在虚拟环境内安装我们所需要的基本的一些包；</li>
 </ol>
@@ -108,22 +108,22 @@
 <li>使用cd命令进入到&#x2F;export&#x2F;server&#x2F;下，随后解压Spark包；</li>
 <li>进入到&#x2F;etc&#x2F;profile&#x2F;中配置环境变量，添加以下内容</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/5798864dbaa6d3a203423a0e42815661.png"></p>
+<p><img src="/Photo/5798864dbaa6d3a203423a0e42815661.png"></p>
 <ol>
 <li>编辑.bashrc文件，添加java和pyspark的Home值；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/2557e3c8f4bf5ab0100db6caacc60c65.png"></p>
+<p><img src="/Photo/2557e3c8f4bf5ab0100db6caacc60c65.png"></p>
 <ol>
 <li>重新加载我们所添加的环境变量；</li>
 <li>进入到&#x2F;export&#x2F;server&#x2F;pyspark&#x2F;bin目录下，运行.&#x2F;pyspark；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/881b7e73c967aca84f47d48b37ba4af9.png"></p>
+<p><img src="/Photo/881b7e73c967aca84f47d48b37ba4af9.png"></p>
 <p>测试运行基于python的spark解释器环境</p>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/15ea530e996ebb85d9dd1be29f73ecdd.png"></p>
+<p><img src="/Photo/15ea530e996ebb85d9dd1be29f73ecdd.png"></p>
 <ol>
 <li>通过查看4040端口得知它的运行状况。</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/e31faa566001add4560f0e40726a7b3f.png"></p>
+<p><img src="/Photo/e31faa566001add4560f0e40726a7b3f.png"></p>
 <h2 id="Spark-stand-alone-模式"><a href="#Spark-stand-alone-模式" class="headerlink" title="Spark(stand-alone)模式"></a>Spark(stand-alone)模式</h2><p>stand-alone集群模式中，Spark的各个角色以独立进程的形式存在，并组成Spark集群环境，运行在Linux系统上</p>
 <p>StandAlone集群在进程上主要有三类</p>
 <p>●主节点Master进程：Master角色，管理整个集群资源，并托管各个任务的Driver</p>
@@ -136,64 +136,64 @@
 <li>在node1节点上进入到&#x2F;export&#x2F;server&#x2F;spark&#x2F;conf目录下；</li>
 <li>将workers.template文件改名为workers；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/541afc6f65fc3fe3ec686e2b4ef4dc22.png"></p>
+<p><img src="/Photo/541afc6f65fc3fe3ec686e2b4ef4dc22.png"></p>
 <ol>
 <li>修改workers内容，将localhost删除，在文本末添加以下内容；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/08205a8cfdf1c052bb5a689cc25247c4.png"></p>
+<p><img src="/Photo/08205a8cfdf1c052bb5a689cc25247c4.png"></p>
 <ol>
 <li>将spark-env.sh.template文件改名为spark-env.sh；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/8855c7211a29ddeeb1de1ff152e4e97b.png"></p>
+<p><img src="/Photo/8855c7211a29ddeeb1de1ff152e4e97b.png"></p>
 <ol>
 <li>在spar-env.sh文件末添加以下内容；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/f15819e951b077560ebc9417cbe0de76.png"></p>
+<p><img src="/Photo/f15819e951b077560ebc9417cbe0de76.png"></p>
 <ol>
 <li>开启hadoop服务；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/9d8e56191a933938cfb9768831ed0100.png"></p>
+<p><img src="/Photo/9d8e56191a933938cfb9768831ed0100.png"></p>
 <ol>
 <li>在HDFS上创建程序运行历史记录存放文件夹，已存在会显示File exists；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/1781aee537b89ed5fcd124221879a283.png"></p>
+<p><img src="/Photo/1781aee537b89ed5fcd124221879a283.png"></p>
 <ol>
 <li>重新进入到&#x2F;export&#x2F;server&#x2F;spark&#x2F;conf&#x2F;目录下，将spark-defaults.conf.template 文件改为spark-defaults.conf；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/ccf8a41474efabbe9422b7ce4d802ddb.png"></p>
+<p><img src="/Photo/ccf8a41474efabbe9422b7ce4d802ddb.png"></p>
 <ol>
 <li>编辑spark-defaults.conf文件，修改添加以下内容；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/f623706dea68aafd82a3b070e36410b3.png"></p>
+<p><img src="/Photo/f623706dea68aafd82a3b070e36410b3.png"></p>
 <ol>
 <li>将log4j.properties.template文件改为log4j.properties；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/945e875031dc98397b6a5871bf5d9696.png"></p>
+<p><img src="/Photo/945e875031dc98397b6a5871bf5d9696.png"></p>
 <ol>
 <li>更改log4j.properties文件中的内容，将原本的INFO改为WARN；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/12553c551d3d6187fa3a39688d7935d4.png"></p>
+<p><img src="/Photo/12553c551d3d6187fa3a39688d7935d4.png"></p>
 <ol>
 <li>将在node1上进行的操作分发各node2、node3；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/945e875031dc98397b6a5871bf5d9696.png"></p>
+<p><img src="/Photo/945e875031dc98397b6a5871bf5d9696.png"></p>
 <ol>
 <li>在node2、node3上分别对分发的spark-3.1.2-bin-hadoop3.2进行软链接，软链接为spark；</li>
 <li>启动历史服务器；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/8f147b2ad8175a0931415f7ec10d0745.png"></p>
+<p><img src="/Photo/8f147b2ad8175a0931415f7ec10d0745.png"></p>
 <ol>
 <li>进入到18080端口，访问WebUI界面，查看所运行过的历史服务；</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/e4db8ad2ea804afb47b63255c761471e.png"></p>
+<p><img src="/Photo/e4db8ad2ea804afb47b63255c761471e.png"></p>
 <ol>
 <li>启动master和worker;</li>
 </ol>
-<p><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/07774a1272d6cf75da9e9172e27d146a.png"></p>
+<p><img src="/Photo/07774a1272d6cf75da9e9172e27d146a.png"></p>
 <ol>
 <li>通过jps查看进程是否开启master和worker进程</li>
 </ol>
-<p><strong><img src="/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/60d715fb3bd41318cbadc2f7476e714c.png"></strong></p>
+<p><strong><img src="/Photo/60d715fb3bd41318cbadc2f7476e714c.png"></strong></p>
 <ol>
 <li>进入到8080端口，访问WebUI界面</li>
 </ol>
@@ -252,7 +252,7 @@
       <ul>
         
           <li>
-            <a href="/2022/05/23/%E3%80%8ASpark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%8B/">《Spark基础环境配置》</a>
+            <a href="/2022/05/23/%E3%80%8ASpark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%8B/">Photo</a>
           </li>
         
           <li>
