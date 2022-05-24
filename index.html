@@ -112,120 +112,11 @@
 <p><img src="/2022/05/24/Photo/82f8b40f188557c8aa1a156891092cce.png"></p>
 <p>进去hostname进行修改</p>
 <p>或者直接在dos下输入</p>
-<p>echo “node1” &gt;&#x2F;etc&#x2F;hostname</p>
-<p><img src="/2022/05/24/Photo/f0cdc7771660f14493cb0dc09a2f82f4.png"></p>
-<p>对hostname里面内容直接覆盖</p>
-<h4 id="配置IP地址"><a href="#配置IP地址" class="headerlink" title="配置IP地址"></a>配置IP地址</h4><p><img src="/2022/05/24/Photo/80ad653ddf1f219838eaca19e11bb77b.png"></p>
-<p>vim &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-ens33</p>
-<p>#设置为静态ip</p>
-<p>BOOTPROTO&#x3D;static;</p>
-<p>#分配IP地址</p>
-<p>IPADDR&#x3D;192.168.88.151</p>
-<p>NETMASK&#x3D;255.255.255.0</p>
-<p>GATEWAY&#x3D;192.168.88.2</p>
-<p>DNS1&#x3D;8.8.8.8</p>
-<h4 id="配置hosts映射"><a href="#配置hosts映射" class="headerlink" title="配置hosts映射"></a>配置hosts映射</h4><p>#使三台虚拟机之间能够相互通信</p>
-<p>vim &#x2F;etc&#x2F;hosts</p>
-<p><img src="/2022/05/24/Photo/90219af164888d77d31db968e2830023.png"></p>
-<h4 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h4><p><img src="/2022/05/24/Photo/347f473d902ff3dba284c3a949c05e17.png"></p>
-<p>systemctl stop firewalld.service #关闭防火墙</p>
-<p>systemctl disable firewalld.service #禁止防火墙开启自启</p>
-<h4 id="ssh免密登录"><a href="#ssh免密登录" class="headerlink" title="ssh免密登录"></a>ssh免密登录</h4><p><img src="/2022/05/24/Photo/001fb55af0708bbf647a31bb0ad69063.png"></p>
-<p>ssh-keygen #生成密钥</p>
-<p>ssh-copy-id node1</p>
-<p>shh-copy-id node2</p>
-<p>ssh-copy-id node3</p>
-<h4 id="同步集群时间"><a href="#同步集群时间" class="headerlink" title="同步集群时间"></a>同步集群时间</h4><p><img src="/2022/05/24/Photo/04c9f08887617acd16ca85e03d21658c.png"></p>
-<p>yum -y install ntpdate</p>
-<p><img src="/2022/05/24/Photo/0854dc4b7ba2c30bd8229707cf315719.png"></p>
-<p>ntdate ntp4.aliyun.com</p>
-<p>以上另外两台也要进行相应操作</p>
-<h4 id="创建文件夹"><a href="#创建文件夹" class="headerlink" title="创建文件夹"></a>创建文件夹</h4><p><img src="/2022/05/24/Photo/a4b9d5da7db7f465b9ad9408e404d2c1.png"></p>
-<p>mkdir -p &#x2F;export&#x2F;server&#x2F;</p>
-<p>mkdir -p &#x2F;export&#x2F;data&#x2F;</p>
-<p>mkdir -p &#x2F;export&#x2F;software&#x2F;</p>
-<h3 id="JDK安装"><a href="#JDK安装" class="headerlink" title="JDK安装"></a>JDK安装</h3><p>JDK 1.8安装 上传 jdk-8u241-linux-x64.tar.gz到&#x2F;export&#x2F;server&#x2F;目录下 并解压文件</p>
-<p>tar -zxvf jdk-8u241-linux-x64.tar.gz</p>
-<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><p><img src="/2022/05/24/Photo/ff21bb025a63fd38698ca862d2e33dc0.png"></p>
-<p>vim &#x2F;etc&#x2F;profile</p>
-<p>export JAVA_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;jdk1.8.0_241</p>
-<p>export PATH&#x3D;$PATH:$JAVA_HOME&#x2F;bin</p>
-<p>export CLASSPATH&#x3D;.:$JAVA_HOME&#x2F;lib&#x2F;dt.jar:$JAVA_HOME&#x2F;lib&#x2F;tools.jar</p>
-<h4 id="重新加载环境变量文件"><a href="#重新加载环境变量文件" class="headerlink" title="重新加载环境变量文件"></a>重新加载环境变量文件</h4><p>source &#x2F;etc&#x2F;profile</p>
-<h4 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h4><p>java -version</p>
-<p><img src="/2022/05/24/Photo/e413a7bf6dbacfa14daf7934e148ec81.png"></p>
-<h4 id="同步进度"><a href="#同步进度" class="headerlink" title="同步进度"></a>同步进度</h4><p>通过scp将文件发送到其他节点</p>
-<p>scp -r &#x2F;export&#x2F;server&#x2F;jdk1.8.0_241&#x2F; root@node2:&#x2F;export&#x2F;server&#x2F;</p>
-<h4 id="创建软链接"><a href="#创建软链接" class="headerlink" title="创建软链接"></a>创建软链接</h4><p><img src="/2022/05/24/Photo/673f52dee758d3009616cca849d4ff1f.png"></p>
-<p>ln -s jdk1.8.0_241&#x2F; jdk</p>
-<h4 id="更新配置文件"><a href="#更新配置文件" class="headerlink" title="更新配置文件"></a>更新配置文件</h4><p>source &#x2F;etc&#x2F;profile</p>
-<h3 id="Hadoop安装配置"><a href="#Hadoop安装配置" class="headerlink" title="Hadoop安装配置"></a>Hadoop安装配置</h3><p>把 hadoop-3.3.0-Centos7-64-with-snappy.tar.gz 上传到 &#x2F;export&#x2F;server 并解压文件</p>
-<p>tar -zxvf hadoop-3.3.0-Centos7-64-with-snappy.tar.gz</p>
-<h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><p>cd &#x2F;export&#x2F;server&#x2F;hadoop-3.3.0&#x2F;etc&#x2F;hadoop</p>
-<p><img src="/2022/05/24/Photo/e9a970dc1f55b054c7338c91d965d9d3.png"></p>
-<h4 id="hadoop-env-sh"><a href="#hadoop-env-sh" class="headerlink" title="hadoop-env.sh"></a>hadoop-env.sh</h4><p><img src="/2022/05/24/Photo/2176cd2c98e28c4219920b6891c0e018.png"></p>
-<h4 id="core-site-xml"><a href="#core-site-xml" class="headerlink" title="core-site.xml"></a>core-site.xml</h4><p><img src="/2022/05/24/Photo/4bc718b48b64aa1582ba00b004e7882e.png"></p>
-<h4 id="hdfs-site-xml"><a href="#hdfs-site-xml" class="headerlink" title="hdfs-site.xml"></a>hdfs-site.xml</h4><p><img src="/2022/05/24/Photo/7b0442f359db80823ec0d213ecc98097.png"></p>
-<h4 id="mapred-site-xml"><a href="#mapred-site-xml" class="headerlink" title="mapred-site.xml"></a>mapred-site.xml</h4><p><img src="/2022/05/24/Photo/2f94ee198223f7d966888fd465c30eca.png"></p>
-<h4 id="yarn-site-xml"><a href="#yarn-site-xml" class="headerlink" title="yarn-site.xml"></a>yarn-site.xml</h4><p><img src="/2022/05/24/Photo/cc98c46629cda9568294b645608b3f89.png"></p>
-<h4 id="workers"><a href="#workers" class="headerlink" title="workers"></a>workers</h4><p><img src="/2022/05/24/Photo/e0fff4a28e1e317742378340ec17c9b2.png"></p>
-<h4 id="分发同步hadoop安装包"><a href="#分发同步hadoop安装包" class="headerlink" title="分发同步hadoop安装包"></a>分发同步hadoop安装包</h4><p>cd &#x2F;export&#x2F;server</p>
-<p>scp -r hadoop-3.3.0 root@node2:$PWD</p>
-<p>scp -r hadoop-3.3.0 root@node3:$PWD</p>
-<h4 id="将hadoop添加到环境变量"><a href="#将hadoop添加到环境变量" class="headerlink" title="将hadoop添加到环境变量"></a>将hadoop添加到环境变量</h4><p><img src="/2022/05/24/Photo/91911aed74312c13813e52cffe1a7cdc.png"></p>
-<p>vim &#x2F;etc&#x2F;profile</p>
-<p>export HADOOP_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;hadoop-3.3.0</p>
-<p>export PATH&#x3D;$PATH:$HADOOP_HOME&#x2F;bin:$HADOOP_HOME&#x2F;sbin</p>
-<h4 id="更新配置文件-1"><a href="#更新配置文件-1" class="headerlink" title="更新配置文件"></a>更新配置文件</h4><p>source &#x2F;etc&#x2F;profile</p>
-<h4 id="Hadoop集群启动"><a href="#Hadoop集群启动" class="headerlink" title="Hadoop集群启动"></a>Hadoop集群启动</h4><h4 id="格式化namenode（只有首次启动需要格式化）"><a href="#格式化namenode（只有首次启动需要格式化）" class="headerlink" title="格式化namenode（只有首次启动需要格式化）"></a>格式化namenode（只有首次启动需要格式化）</h4><p>hdfs namenode -format</p>
-<p><img src="/2022/05/24/Photo/6ce8841809305635d1926aa72470a733.png"></p>
-<h4 id="脚本一键启动"><a href="#脚本一键启动" class="headerlink" title="脚本一键启动"></a>脚本一键启动</h4><p>start-all.sh</p>
-<p><img src="/2022/05/24/Photo/8a615ce234307b64e0429eb83616a166.png"></p>
-<h4 id="查看web页面"><a href="#查看web页面" class="headerlink" title="查看web页面"></a>查看web页面</h4><p>HDFS：<a target="_blank" rel="noopener" href="http://node1:9870/">http://node1:9870</a></p>
-<p><img src="/2022/05/24/Photo/77587d3062a44d905538928fdd0b68c8.png"></p>
-<p>YARM:<a target="_blank" rel="noopener" href="http://node1:8088/">http://node1:8088</a></p>
-<p><img src="/2022/05/24/Photo/b6ffbcc06cb7a9f14d812236265c907b.png"></p>
-<h3 id="安装zookeeper"><a href="#安装zookeeper" class="headerlink" title="安装zookeeper"></a>安装zookeeper</h3><p>上传 zookeeper-3.4.10.tar.gz到&#x2F;export&#x2F;server&#x2F;目录下 并解压文件</p>
-<p>tar -zxvf zookeeper-3.4.10.tar.gz</p>
-<h4 id="创建软链接-1"><a href="#创建软链接-1" class="headerlink" title="创建软链接"></a>创建软链接</h4><p>ln -s zookeeper-3.4.10&#x2F; zookeeper</p>
-<p><img src="/2022/05/24/Photo/45259a8184230f7f4788d20ada9b5c80.png"></p>
-<p>进入 &#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;conf&#x2F; 将 zoo_sample.cfg 文件复制为新文件 zoo.cfg</p>
-<p>cd &#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;conf&#x2F;</p>
-<p>cp zoo_sample.cfg zoo.cfg</p>
-<p><img src="/2022/05/24/Photo/156573148aed0a0964dff3333f894fb3.png"></p>
-<h4 id="修改zoo-cfg配置文件"><a href="#修改zoo-cfg配置文件" class="headerlink" title="修改zoo.cfg配置文件"></a>修改zoo.cfg配置文件</h4><p><img src="/2022/05/24/Photo/c3de8e616586f6216854491457b88b89.png"></p>
-<p>#Zookeeper的数据存放目录</p>
-<p>dataDir&#x3D;&#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;zkdatas</p>
-<p># 保留多少个快照</p>
-<p>autopurge.snapRetainCount&#x3D;3</p>
-<p># 日志多少小时清理一次</p>
-<p>autopurge.purgeInterval&#x3D;1</p>
-<p># 集群中服务器地址</p>
-<p>server.1&#x3D;node1:2888:3888</p>
-<p>server.2&#x3D;node2:2888:3888</p>
-<p>server.3&#x3D;node3:2888:3888</p>
-<p>进入 &#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;zkdatas 目录在此目录下创建 myid 文件，将 1 写入进去</p>
-<p><img src="/2022/05/24/Photo/d0816cc5ea50e791b01f4ee752bb7766.png"></p>
-<p>cd &#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;zkdata</p>
-<p>touch myid</p>
-<p>echo ‘1’ &gt; myid</p>
-<h4 id="同步进度-1"><a href="#同步进度-1" class="headerlink" title="同步进度"></a>同步进度</h4><p>scp -r &#x2F;export&#x2F;server&#x2F;zookeeper-3.4.10&#x2F; node2:$PWD</p>
-<p>scp -r &#x2F;export&#x2F;server&#x2F;zookeeper-3.4.10&#x2F; node3:$PWD</p>
-<h4 id="创建软连接node2、node3"><a href="#创建软连接node2、node3" class="headerlink" title="创建软连接node2、node3"></a>创建软连接node2、node3</h4><p>ln -s zookeeper-3.4.10&#x2F; zookeeper</p>
-<p><img src="/2022/05/24/Photo/45259a8184230f7f4788d20ada9b5c80.png"></p>
-<p>接上步推送完成后将 node2 和 node3 的 &#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;zkdatas&#x2F; 文件夹下的 myid 中的内容分别改为 2 和 3</p>
-<h4 id="配置zookeeper的环境变量"><a href="#配置zookeeper的环境变量" class="headerlink" title="配置zookeeper的环境变量"></a>配置zookeeper的环境变量</h4><p>vim &#x2F;etc&#x2F;profile</p>
-<p># zookeeper 环境变量</p>
-<p><img src="/2022/05/24/Photo/862a3f055565d5dea6433d030ecab32c.png"></p>
-<p>export ZOOKEEPER_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;zookeeper</p>
-<p>export PATH&#x3D;$PATH:$ZOOKEEPER_HOME&#x2F;bin</p>
-<h4 id="加载环境变量"><a href="#加载环境变量" class="headerlink" title="加载环境变量"></a>加载环境变量</h4><p>source &#x2F;etc&#x2F;profile</p>
-<h4 id="在-x2F-export-x2F-server-x2F-zookeeper-3-4-10-x2F-bin下编写一键启动脚本"><a href="#在-x2F-export-x2F-server-x2F-zookeeper-3-4-10-x2F-bin下编写一键启动脚本" class="headerlink" title="在&#x2F;export&#x2F;server&#x2F;zookeeper-3.4.10&#x2F;bin下编写一键启动脚本"></a>在&#x2F;export&#x2F;server&#x2F;zookeeper-3.4.10&#x2F;bin下编写一键启动脚本</h4><p>vim zkAll.sh</p>
-<p><img src="/2022/05/24/Photo/db18c176c9cac9ed688002751db77d71.png"></p>
-<h4 id="赋予权限并执行"><a href="#赋予权限并执行" class="headerlink" title="赋予权限并执行"></a>赋予权限并执行</h4><p>chmod +x zkAll.sh &amp;&amp; zkAll.sh start</p>
-<p><img src="/2022/05/24/Photo/e5f907cf809b02c2007aebb71dc56ca3.png"></p>
-<p><img src="/2022/05/24/Photo/5068feeef4fe4796a9d53f736d50e56b.png"></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2022/05/23/%E3%80%8ASpark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%8B/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -273,40 +164,11 @@
 <p>Dspark.deploy.zookeeper.url&#x3D;master:2181,slave1:2181,slave2:2181 -</p>
 <p>Dspark.deploy.zookeeper.dir&#x3D;&#x2F;spark-ha”</p>
 <p><img src="/2022/05/24/Photo/7e94a2fab5241d0d5391da0b8ab4101b.png"></p>
-<p>分发 spark-env.sh 到 node1 和 node2 上</p>
-<p><img src="/2022/05/24/Photo/f116253b66f919e9f5e6e3501ec1d951.png"></p>
-<p><img src="/2022/05/24/Photo/c810343e2a98065de9506db7e4fefb5e.png"></p>
-<p>启动之前确保 Zookeeper 和 HDFS 均已经启动</p>
-<p><img src="/2022/05/24/Photo/3ce7144c13c5ac9986a37244ff793fc2.png"></p>
-<p><img src="/2022/05/24/Photo/9c4b8407bbcdd1a6c7bb35436c3810bc.png"></p>
-<p>下面命令在 node1 上执行 启动 node2 上的 node1 做备用 master</p>
-<p><img src="/2022/05/24/Photo/37d0618286374147d8b86a286b990a59.png"></p>
-<p>两台结果显示</p>
-<p><img src="/2022/05/24/Photo/149290a59ce7532315fb4d23f8c83012.png"></p>
-<p>访问WebUI界面，查看node1和node2的状态，可以看到node1的状态为ALIVE，node2状态为STANDBY</p>
-<p><img src="/2022/05/24/Photo/02de6e98bd30416e5b49e9fa116720ff.png"></p>
-<p>删除掉node1上master的16551进程号，jps查看端口是否删除，然后重新启动查看。</p>
-<p><img src="/2022/05/24/Photo/796bb9b5e23c4c600a544ea2e5b80b83.png"></p>
-<p>Spark（Yarn）</p>
-<p>（速度超快。</p>
-<p>Yarn 缓存了每个下载过的包，所以再次使用时无需重复下载。 同时利用并行下载以最大化资源利用率，因此安装速度更快。</p>
-<p>超级安全。在执行代码之前，Yarn 会通过算法校验每个安装包的完整性。超级可靠。使用详细、简洁的锁文件格式和明确的安装算法，Yarn 能够保证在不同系统上无差别的工作）</p>
-<p>查看&#x2F;export&#x2F;server&#x2F;spark&#x2F;conf&#x2F;下的spark-env.sh文件 查看配置 并且添加内容</p>
-<p><img src="/2022/05/24/Photo/2e00293442e03a108469d437c5be037f.png"></p>
-<p><img src="/2022/05/24/Photo/0c804e542b370d7e910a825e089aca45.png"></p>
-<p>把spark链接到yarn中</p>
-<p><img src="/2022/05/24/Photo/0860ac4392981be66c5e72b42e59d5a4.png"></p>
-<p><img src="/2022/05/24/Photo/0860ac4392981be66c5e72b42e59d5a4.png"></p>
-<p><img src="/2022/05/24/Photo/3cb0c8eedde8c58f5a85eaaed1555a82.png"></p>
-<p>Client测试</p>
-<p><img src="/2022/05/24/Photo/7c6fe913202aeaffba2f60dfb1dafede.png"></p>
-<p>Cluster测试</p>
-<p><img src="/2022/05/24/Photo/9bd3fac2c65861f70d3865399083b758.png"></p>
-<p>启动 YARN 的历史服务器</p>
-<p><img src="/2022/05/24/Photo/27f360f448aed02630415954993a395c.png"></p>
-<p>访问WebUI界面，查看运行状况</p>
-<p><img src="/2022/05/24/Photo/b9df8facc9700c2caadcb2bbe883656d.png"></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2022/05/23/%E3%80%8ASpark-HA-Yarn%E9%85%8D%E7%BD%AE%E3%80%8B/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -314,6 +176,8 @@
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/" rel="tag">spark</a></li></ul>
+
     </footer>
   </div>
   
@@ -350,131 +214,11 @@
 <p>●Worker角色，管理单个服务器的资源</p>
 <p>●Driver角色，管理单个Spark任务在运行的时候的工作</p>
 <p>●Executor角色，单个任务运行的时候的工作者</p>
-<p>Anaconda On Linux 安装</p>
-<ol>
-<li>上传Anaconda3-2021.05-Linux-x86_64.sh文件到虚拟机&#x2F;export&#x2F;server&#x2F;目录下；</li>
-</ol>
-<p>使用cd命令进入到&#x2F;export&#x2F;server&#x2F;下，随后sh执行Anaconda3-2021.05-Linux-x86_64.sh</p>
-<p><img src="/2022/05/24/Photo/90bdc480990c5520aa36772dddab03ee.png"></p>
-<p>在遇到Do you accept the license terms? [yes | no]时，选择yes</p>
-<p><img src="/2022/05/24/Photo/10729695ad9cfea78ede27382af5926f.png"></p>
-<ol>
-<li>在上述命令回车后，会让你选择你想要安装的路径，统一安装在&#x2F;export&#x2F;server&#x2F;anaconda3下；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/e36901bc4869cb948106a3c9ea2166ee.png"></p>
-<ol>
-<li>等待执行完毕后，在新的[yes|no]选择界面选择yes；</li>
-</ol>
-<p>随后exit退出重新登录即可看到base，代表着安装完成；</p>
-<p><img src="/2022/05/24/Photo/90bdc480990c5520aa36772dddab03ee.png"></p>
-<ol>
-<li>创建虚拟环境pyspark，基于Python 3.8；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/8c7ea5b4cc31baf87c183e11cc32e0e0.png"></p>
-<ol>
-<li>切换到虚拟环境内；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/acfb46638b0d8c5e0a8544d8f8521d4f.png"></p>
-<ol>
-<li>在虚拟环境内安装我们所需要的基本的一些包；</li>
-</ol>
-<p>以上就是Anaconda的安装；</p>
-<p>Spark安装</p>
-<ol>
-<li>上传Spark安装包到&#x2F;export&#x2F;server&#x2F;目录下；</li>
-<li>使用cd命令进入到&#x2F;export&#x2F;server&#x2F;下，随后解压Spark包；</li>
-<li>进入到&#x2F;etc&#x2F;profile&#x2F;中配置环境变量，添加以下内容</li>
-</ol>
-<p><img src="/2022/05/24/Photo/5798864dbaa6d3a203423a0e42815661.png"></p>
-<ol>
-<li>编辑.bashrc文件，添加java和pyspark的Home值；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/2557e3c8f4bf5ab0100db6caacc60c65.png"></p>
-<ol>
-<li>重新加载我们所添加的环境变量；</li>
-<li>进入到&#x2F;export&#x2F;server&#x2F;pyspark&#x2F;bin目录下，运行.&#x2F;pyspark；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/881b7e73c967aca84f47d48b37ba4af9.png"></p>
-<p>测试运行基于python的spark解释器环境</p>
-<p><img src="/2022/05/24/Photo/15ea530e996ebb85d9dd1be29f73ecdd.png"></p>
-<ol>
-<li>通过查看4040端口得知它的运行状况。</li>
-</ol>
-<p><img src="/2022/05/24/Photo/e31faa566001add4560f0e40726a7b3f.png"></p>
-<h2 id="Spark-stand-alone-模式"><a href="#Spark-stand-alone-模式" class="headerlink" title="Spark(stand-alone)模式"></a>Spark(stand-alone)模式</h2><p>stand-alone集群模式中，Spark的各个角色以独立进程的形式存在，并组成Spark集群环境，运行在Linux系统上</p>
-<p>StandAlone集群在进程上主要有三类</p>
-<p>●主节点Master进程：Master角色，管理整个集群资源，并托管各个任务的Driver</p>
-<p>●从节点Workers：Worker角色，管理每个机器的资源，分配对应资源来运行Executor（Task）</p>
-<p>●历史服务器HistoryServer：在Spark Application运行完成以后，保存事件日志数据至HDFS</p>
-<p>三台虚拟机安装Anaconda</p>
-<p>参考Spark（local）模式下的Anaconda的安装文档，在node2、node3完成对Anaconda的安装</p>
-<p>Spark（stand-alone）新配置</p>
-<ol>
-<li>在node1节点上进入到&#x2F;export&#x2F;server&#x2F;spark&#x2F;conf目录下；</li>
-<li>将workers.template文件改名为workers；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/541afc6f65fc3fe3ec686e2b4ef4dc22.png"></p>
-<ol>
-<li>修改workers内容，将localhost删除，在文本末添加以下内容；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/08205a8cfdf1c052bb5a689cc25247c4.png"></p>
-<ol>
-<li>将spark-env.sh.template文件改名为spark-env.sh；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/8855c7211a29ddeeb1de1ff152e4e97b.png"></p>
-<ol>
-<li>在spar-env.sh文件末添加以下内容；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/f15819e951b077560ebc9417cbe0de76.png"></p>
-<ol>
-<li>开启hadoop服务；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/9d8e56191a933938cfb9768831ed0100.png"></p>
-<ol>
-<li>在HDFS上创建程序运行历史记录存放文件夹，已存在会显示File exists；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/1781aee537b89ed5fcd124221879a283.png"></p>
-<ol>
-<li>重新进入到&#x2F;export&#x2F;server&#x2F;spark&#x2F;conf&#x2F;目录下，将spark-defaults.conf.template 文件改为spark-defaults.conf；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/ccf8a41474efabbe9422b7ce4d802ddb.png"></p>
-<ol>
-<li>编辑spark-defaults.conf文件，修改添加以下内容；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/f623706dea68aafd82a3b070e36410b3.png"></p>
-<ol>
-<li>将log4j.properties.template文件改为log4j.properties；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/945e875031dc98397b6a5871bf5d9696.png"></p>
-<ol>
-<li>更改log4j.properties文件中的内容，将原本的INFO改为WARN；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/12553c551d3d6187fa3a39688d7935d4.png"></p>
-<ol>
-<li>将在node1上进行的操作分发各node2、node3；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/945e875031dc98397b6a5871bf5d9696.png"></p>
-<ol>
-<li>在node2、node3上分别对分发的spark-3.1.2-bin-hadoop3.2进行软链接，软链接为spark；</li>
-<li>启动历史服务器；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/8f147b2ad8175a0931415f7ec10d0745.png"></p>
-<ol>
-<li>进入到18080端口，访问WebUI界面，查看所运行过的历史服务；</li>
-</ol>
-<p><img src="/2022/05/24/Photo/e4db8ad2ea804afb47b63255c761471e.png"></p>
-<ol>
-<li>启动master和worker;</li>
-</ol>
-<p><img src="/2022/05/24/Photo/07774a1272d6cf75da9e9172e27d146a.png"></p>
-<ol>
-<li>通过jps查看进程是否开启master和worker进程</li>
-</ol>
-<p><strong><img src="/2022/05/24/Photo/60d715fb3bd41318cbadc2f7476e714c.png"></strong></p>
-<ol>
-<li>进入到8080端口，访问WebUI界面</li>
-</ol>
-
+        
+          <p class="article-more-link">
+            <a href="/2022/05/23/%E3%80%8ASpark-local-stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -482,6 +226,8 @@
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/" rel="tag">Spark</a></li></ul>
+
     </footer>
   </div>
   
@@ -549,7 +295,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/" rel="tag">Spark</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/" rel="tag">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/" rel="tag">spark</a></li></ul>
     </div>
   </div>
 
