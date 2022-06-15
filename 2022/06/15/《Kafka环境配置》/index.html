@@ -70,21 +70,21 @@
         <p>一、Kafka环境配置</p>
 <p>1.上传kafka_2.11-2.0.0.tgz到export&#x2F;server，使用tar -zxvf kafka_2.11-2.0.0.tgz</p>
 <p>命令解压</p>
-<p><img src="/css/images/Kafka/image001.png" alt="img"></p>
-<p><img src="/css/images/Kafka/image002.png" alt="img"></p>
+<p><img src="/2022/05/24/Photo/image001.png" alt="img"></p>
+<p><img src="/2022/05/24/Photo/image002.png" alt="img"></p>
 <span id="more"></span>
 
 <p>&#x2F;2.   对解压后的Kafka创建软连接方便访问ln -s &#x2F;export&#x2F;server&#x2F;kafka_2.11-2.0.0 &#x2F;export&#x2F;server&#x2F;kafka</p>
-<p><img src="/css/images/Kafka/image003.png" alt="img"></p>
+<p><img src="/2022/05/24/Photo/image003.png" alt="img"></p>
 <p>&#x2F;3.   修改 &#x2F;export&#x2F;server&#x2F;kafka&#x2F;config路径下的配置文件 </p>
 <p>编辑vi server.properties 修改以下内容</p>
 <p>broker.id&#x3D;0.从0开始,每台不能重复.Listeners &#x3D; plaintext:&#x2F;&#x2F;:9092通信用的是明文传递改成：Listeners &#x3D; plaintext:&#x2F;&#x2F;node1:9092</p>
 <p>设置数据存储的目录路径log.dirs&#x3D;&#x2F;export&#x2F;server&#x2F;data&#x2F;kafka-logs</p>
 <p>默认分区数num.partitions &#x3D; 1</p>
 <p>指定 zk 集群地址zookeeper.connect&#x3D;node1:2181,node2:2181,node3:2181</p>
-<p><img src="/css/images/Kafka/image004.png" alt="img"></p>
+<p><img src="/2022/05/24/Photo/image004.png" alt="img"></p>
 <p>&#x2F;4.   配置环境变量 &#x2F;etc&#x2F;profile</p>
-<p><img src="/css/images/Kafka/image005.png" alt="img"></p>
+<p><img src="/2022/05/24/Photo/image005.png" alt="img"></p>
 <p>source &#x2F;etc&#x2F;profile重新加载环境变量</p>
 <p>&#x2F;5.   cd &#x2F;export&#x2F;server分别把配置文件和环境变量的配置文件分发到node2;node3结点上具体命令如下（内容过长不便截图）</p>
 <p>scp -r &#x2F;export&#x2F;server&#x2F;kafka&#x2F; node2:$PWD</p>
@@ -95,13 +95,13 @@
 <p>&#x2F;export&#x2F;server&#x2F;kafka&#x2F;config&#x2F;server.properties</p>
 <p>broker.id&#x3D;1</p>
 <p>listeners &#x3D; plaintext:&#x2F;&#x2F;node2:9092</p>
-<p><img src="/css/images/Kafka/image006.png" alt="img"></p>
+<p><img src="/2022/05/24/Photo/image006.png" alt="img"></p>
 <p>broker.id&#x3D;2</p>
 <p>listeners &#x3D; plaintext:&#x2F;&#x2F;node3:9092</p>
-<p><img src="/css/images/Kafka/image007.png" alt="img"></p>
+<p><img src="/2022/05/24/Photo/image007.png" alt="img"></p>
 <p>&#x2F;7.   启动Kafka</p>
 <p>使用脚本一键启动</p>
-<p><img src="/css/images/Kafka/image008.png" alt="img"></p>
+<p><img src="/2022/05/24/Photo/image008.png" alt="img"></p>
 
       
     </div>
