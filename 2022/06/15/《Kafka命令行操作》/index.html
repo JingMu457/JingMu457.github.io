@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>《Kafka命令行操作》 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-《Kafka命令行操作》" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/15/%E3%80%8AKafka%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E3%80%8B/" class="article-date">
+  <time class="dt-published" datetime="2022-06-15T15:40:38.000Z" itemprop="datePublished">2022-06-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      《Kafka命令行操作》
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>一、Kafka命令行操作</p>
+<p>\1. Kafka 中提供了许多命令行工具(位于$KAFKA HOME&#x2F;bin 目录下)用于管理集群的变更。</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage009.png" alt="img"></p>
+<span id="more"></span>
+
+<p>\2. 查看当前可用topic</p>
+<p>.&#x2F;kafka-topics.sh –zookeeper node1:2181,node2:2181,node3:2181 –create –replication-factor 2 –partitions 2 –topic test</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage010.png" alt="img"></p>
+<p>\3. 创建topic</p>
+<p>bin&#x2F;kafka-topics.sh –create –topic tpc_2 –partitions 2 –replication-factor 2 –zookeeper node1:2181该方式下,命令会自动判断所要创建的 topic 的分区数及副本数</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage011.png" alt="img"></p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage012.png" alt="img"></p>
+<p>\4. 删除topic</p>
+<p>bin&#x2F;kafka-topics.sh –delete –topic tpc_3 –zookeeper node1：2181</p>
+<p>删除 topic,需要一个参数处于启用状态: delete.topic.enable &#x3D; true,否则删不掉</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage013.png" alt="img"></p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage014.png" alt="img"></p>
+<p>\5. 查看topic</p>
+<p>kafka-topics.sh –delete –topic tpc_1 –zookeeper node1:2181</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage015.png" alt="1652460968(1)"></p>
+<p>\6. 增加分区数</p>
+<p>bin&#x2F;kafka-topics.sh –alter –topic tpc_1 –partitions 3 –zookeeper node1:2181</p>
+<p>需要注意：Kafka 只支持增加分区,不支持减少分区原因是:减少分区,代价太大(数据的转移,日志段拼接合并) 如果真的需要实现此功能,则完全可以重新创建一个分区数较小的主题,然后将现有主题中的消息按照既定的逻辑复制过去;</p>
+<p>\7. 动态配置topic参数</p>
+<p>添加、修改配置参数bin&#x2F;kafka-configs.sh –zookeeper node1:2181 –entity-type topics –entity-name tpc_1 –alter –add-config compression.type&#x3D;gzip</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage016.png" alt="img"></p>
+<p>删除配置参数</p>
+<p>bin&#x2F;kafka-configs.sh –zookeeper node1:2181 –entity-type topics –entity-name tpc_1 –alter –delete-config compression.type</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage017.png" alt="img"></p>
+<p>\8. Kafka命令行生产者与消费者操作</p>
+<p>(1)生产者:kafka-console-producer</p>
+<p>bin&#x2F;kafka-console-producer.sh –broker-list node1:9092, node2:9092, node3:9092 –topic tpc_1</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage018.png" alt="img"></p>
+<p>(2)消费者:kafka-console-consumer</p>
+<p>1消费消息</p>
+<p>bin&#x2F;kafka-console-consumer.sh –bootstrap-server node1:9092, node2:9092, node1:9092 –topic tpc_1 –from-beginning(从头开始)</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage019.png" alt="img"></p>
+<p>2指定要消费的分区,和要消费的起始 offset </p>
+<p>bin&#x2F;kafka-console-consumer.sh–bootstrap-servernode1:9092,node2:9092,node3:9092 –topic tcp_1 –offset 2 –partition 0</p>
+<p>\9. Kafka命令行配置管理</p>
+<p>bin&#x2F;kafka-configs.sh zookeeper node1: 2181 –describe –entity-type topics –entity-name tpc_1 </p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage020.png" alt="img"></p>
+<p>比如查看 broker 的动态配置可以按如下方式执行:</p>
+<p>bin&#x2F;kafka-configs.sh zookeeper node1: 2181 –describe –entity-type brokers –entity-name 0 –zookeeper node1:2181</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage021.png" alt="img"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jingmu457.github.io/2022/06/15/%E3%80%8AKafka%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E3%80%8B/" data-id="cl4ftxvad0001fcg4aii3et6a" data-title="《Kafka命令行操作》" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kafka/" rel="tag">kafka</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/06/15/%E3%80%8Akafka-API%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E3%80%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          《kafka API使用方法》
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/06/15/%E3%80%8AKafka%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">《Kafka环境配置》</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/" rel="tag">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/" rel="tag">spark</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/15/%E3%80%8Akafka-API%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E3%80%8B/">《kafka API使用方法》</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/15/%E3%80%8AKafka%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E3%80%8B/">《Kafka命令行操作》</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/15/%E3%80%8AKafka%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%8B/">《Kafka环境配置》</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/01/exp-1/">exp_1</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/24/Photo/">Photo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

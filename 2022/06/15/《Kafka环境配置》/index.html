@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Photo | Hexo</title>
+  <title>《Kafka环境配置》 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -45,10 +45,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-Photo" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-《Kafka环境配置》" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/05/24/Photo/" class="article-date">
-  <time class="dt-published" datetime="2022-05-24T01:26:51.000Z" itemprop="datePublished">2022-05-24</time>
+    <a href="/2022/06/15/%E3%80%8AKafka%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%8B/" class="article-date">
+  <time class="dt-published" datetime="2022-06-15T15:40:06.000Z" itemprop="datePublished">2022-06-15</time>
 </a>
     
   </div>
@@ -59,7 +59,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Photo
+      《Kafka环境配置》
     </h1>
   
 
@@ -67,33 +67,70 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <p>一、Kafka环境配置</p>
+<p>1.上传kafka_2.11-2.0.0.tgz到export&#x2F;server，使用tar -zxvf kafka_2.11-2.0.0.tgz</p>
+<p>命令解压</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage001.png" alt="img"></p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage002.png" alt="img"></p>
+<span id="more"></span>
+
+<p>\2.   对解压后的Kafka创建软连接方便访问ln -s &#x2F;export&#x2F;server&#x2F;kafka_2.11-2.0.0 &#x2F;export&#x2F;server&#x2F;kafka</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage003.png" alt="img"></p>
+<p>\3.   修改 &#x2F;export&#x2F;server&#x2F;kafka&#x2F;config路径下的配置文件 </p>
+<p>编辑vi server.properties 修改以下内容</p>
+<p>broker.id&#x3D;0.从0开始,每台不能重复.Listeners &#x3D; plaintext:&#x2F;&#x2F;:9092通信用的是明文传递改成：Listeners &#x3D; plaintext:&#x2F;&#x2F;node1:9092</p>
+<p>设置数据存储的目录路径log.dirs&#x3D;&#x2F;export&#x2F;server&#x2F;data&#x2F;kafka-logs</p>
+<p>默认分区数num.partitions &#x3D; 1</p>
+<p>指定 zk 集群地址zookeeper.connect&#x3D;node1:2181,node2:2181,node3:2181</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage004.png" alt="img"></p>
+<p>\4.   配置环境变量 &#x2F;etc&#x2F;profile</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage005.png" alt="img"></p>
+<p>source &#x2F;etc&#x2F;profile重新加载环境变量</p>
+<p>\5.   cd &#x2F;export&#x2F;server分别把配置文件和环境变量的配置文件分发到node2;node3结点上具体命令如下（内容过长不便截图）</p>
+<p>scp -r &#x2F;export&#x2F;server&#x2F;kafka&#x2F; node2:$PWD</p>
+<p>scp -r &#x2F;export&#x2F;server&#x2F;kafka&#x2F; node3:$PWD</p>
+<p>scp -r &#x2F;etc&#x2F;profile&#x2F; node2:etc&#x2F;profile</p>
+<p>scp -r &#x2F;etc&#x2F;profile&#x2F; node2:etc&#x2F;profile</p>
+<p>\6.   修改node2和node3的配置文件</p>
+<p>&#x2F;export&#x2F;server&#x2F;kafka&#x2F;config&#x2F;server.properties</p>
+<p>broker.id&#x3D;1</p>
+<p>listeners &#x3D; plaintext:&#x2F;&#x2F;node2:9092</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage006.png" alt="img"></p>
+<p>broker.id&#x3D;2</p>
+<p>listeners &#x3D; plaintext:&#x2F;&#x2F;node3:9092</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage007.png" alt="img"></p>
+<p>\7.   启动Kafka</p>
+<p>使用脚本一键启动</p>
+<p><img src="/css%5Cimages%5CKafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8%5Cimage008.png" alt="img"></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jingmu457.github.io/2022/05/24/Photo/" data-id="cl3vjqncw0000a8g4c5fachpm" data-title="Photo" class="article-share-link">Share</a>
+      <a data-url="http://jingmu457.github.io/2022/06/15/%E3%80%8AKafka%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%8B/" data-id="cl4ftxvah0003fcg427nh6eel" data-title="《Kafka环境配置》" class="article-share-link">Share</a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kafka/" rel="tag">kafka</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2022/06/01/exp-1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2022/06/15/%E3%80%8AKafka%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E3%80%8B/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          exp_1
+          《Kafka命令行操作》
         
       </div>
     </a>
   
   
-    <a href="/2022/05/23/%E3%80%8ASpark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%8B/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2022/06/01/exp-1/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">《Spark基础环境配置》</div>
+      <div class="article-nav-title">exp_1</div>
     </a>
   
 </nav>
