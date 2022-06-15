@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>《Eagle功能》 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-《Eagle功能》" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/16/%E3%80%8AEagle%E5%8A%9F%E8%83%BD%E3%80%8B/" class="article-date">
+  <time class="dt-published" datetime="2022-06-15T18:06:00.000Z" itemprop="datePublished">2022-06-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      《Eagle功能》
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h2><p>下载好之后指定目录解压压缩包，接下来开始环境变量得配置。由于源代码核心实现采用的是Java语言，所以需要配置JDK环境，建议采用JDK8以上。配置内容如下：</p>
+<span id="more"></span>
+
+<h3 id="1-找到文件profile-一般在etc-x2F-目录下"><a href="#1-找到文件profile-一般在etc-x2F-目录下" class="headerlink" title="1)找到文件profile  一般在etc&#x2F;目录下"></a>1)找到文件profile  一般在etc&#x2F;目录下</h3><p>增加变量：</p>
+<p>vi &#x2F;etc&#x2F;profile </p>
+<p>export JAVA_HOME&#x3D;&#x2F;usr&#x2F;java&#x2F;jdk1.8</p>
+<p>export PATH&#x3D;$PATH:$JAVA_HOME&#x2F;bin</p>
+<p>export KE_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;kafka-eagle</p>
+<p>export PATH&#x3D;$PATH:$KE_HOME&#x2F;bin</p>
+<p>文件一般带有缓存，可通过命令使配置立即生效。</p>
+<p>. &#x2F;etc&#x2F;profile  注意点后面空格</p>
+<h3 id="2-编辑kafka-eagle配置文件-system-config-properties-conf下"><a href="#2-编辑kafka-eagle配置文件-system-config-properties-conf下" class="headerlink" title="2)编辑kafka-eagle配置文件 system-config.properties conf下"></a>2)编辑kafka-eagle配置文件 system-config.properties conf下</h3><p># 配置多个Kafka集群所对应的Zookeeper </p>
+<p>kafka.eagle.zk.cluster.alias&#x3D;cluster1</p>
+<p>cluster1.zk.list&#x3D;node1:2181,node2:2181,node3:2181</p>
+<p>cluster1.kafka.eagle.broker.size&#x3D;3</p>
+<p>cluster2.zk.list&#x3D;tdn1:2181,tdn2:2181,tdn3:2181</p>
+<p># 设置Zookeeper线程数 </p>
+<p>kafka.zk.limit.size&#x3D;25</p>
+<p># 设置Kafka Eagle浏览器访问端口</p>
+<p>kafka.eagle.webui.port&#x3D;8048</p>
+<p># 如果你的offsets存储在Kafka中，这里就配置</p>
+<p># 属性值为kafka，如果是在Zookeeper中，可以</p>
+<p># 注释该属性。一般情况下，Offsets的也和你消</p>
+<p># 费者API有关系，如果你使用的Kafka版本为0.10.x</p>
+<p># 以后的版本，但是，你的消费API使用的是0.8.2.x</p>
+<p># 时的API，此时消费者依然是在Zookeeper中</p>
+<p>cluster1.kafka.eagle.offset.storage&#x3D;kafka</p>
+<p># 如果你的集群一个是新版本（0.10.x以上），</p>
+<p># 一个是老版本（0.8或0.9），可以这样设置，</p>
+<p># 如果都是新版本，那么可以将值都设置成kafka</p>
+<p>cluster2.kafka.eagle.offset.storage&#x3D;zookeeper</p>
+<p># 是否启动监控图表，默认是不启动的</p>
+<p>kafka.eagle.metrics.charts&#x3D;false</p>
+<p># 在使用Kafka SQL查询主题时，如果遇到错误，</p>
+<p># 可以尝试开启这个属性，默认情况下，不开启</p>
+<p>kafka.eagle.sql.fix.error&#x3D;false</p>
+<p># 邮件服务器设置，用来告警  此处也可以调用第三方接口 方式选用email</p>
+<p>kafka.eagle.mail.enable&#x3D;false  是否启用  选用邮箱时需设为true</p>
+<p>kafka.eagle.mail.sa&#x3D;  邮箱地址</p>
+<p>kafka.eagle.mail.username&#x3D;  用户名</p>
+<p>kafka.eagle.mail.password&#x3D;  密码</p>
+<p>kafka.eagle.mail.server.host&#x3D;  smtp服务器地址</p>
+<p>kafka.eagle.mail.server.port&#x3D;  端口</p>
+<p># 设置告警用户，多个用户以英文逗号分隔</p>
+<p>kafka.eagle.alert.users&#x3D;<a href="mailto:&#115;&#109;&#97;&#114;&#x74;&#x6c;&#x6f;&#x6c;&#x69;&#x2e;&#111;&#114;&#103;&#64;&#103;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#109;">&#115;&#109;&#97;&#114;&#x74;&#x6c;&#x6f;&#x6c;&#x69;&#x2e;&#111;&#114;&#103;&#64;&#103;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#109;</a></p>
+<p># 超级管理员删除主题的Token</p>
+<p>kafka.eagle.topic.token&#x3D;keadmin</p>
+<p># 如果启动Kafka SASL协议，开启该属性</p>
+<p>kafka.eagle.sasl.enable&#x3D;false</p>
+<p>kafka.eagle.sasl.protocol&#x3D;SASL_PLAINTEXT</p>
+<p>kafka.eagle.sasl.mechanism&#x3D;PLAIN</p>
+<p># Kafka Eagle默认存储在Sqlite中，如果要使用</p>
+<p># MySQL可以替换驱动、用户名、密码、连接地址，</p>
+<p># 推荐使用Sqlite，更轻量级</p>
+<p>#kafka.eagle.driver&#x3D;org.sqlite.JDBC</p>
+<p>kafka.eagle.url&#x3D;jdbc:sqlite:&#x2F;export&#x2F;data&#x2F;db&#x2F;ke.db</p>
+<p>#kafka.eagle.username&#x3D;root</p>
+<p>#kafka.eagle.password&#x3D;123456</p>
+<h1 id="服务启动"><a href="#服务启动" class="headerlink" title="服务启动"></a>服务启动</h1><h2 id="1、进入安装目录bin-脚本授权"><a href="#1、进入安装目录bin-脚本授权" class="headerlink" title="1、进入安装目录bin,脚本授权"></a>1、进入安装目录bin,脚本授权</h2><p>在ke.sh脚本中，支持一下命令</p>
+<p>ke.sh start    启动kafka Eagle</p>
+<p>ke.sh stop    停止kafka-eagle</p>
+<p>ke.sh restart   重启kafka-eagle</p>
+<p>ke.sh status   查看kafka-eagle系统运行状态</p>
+<p>ke.sh stats    统计kafka-eagle系统占用资源情况</p>
+<p>ke.sh find [ClassName]    查看kafka-eagle中得类是否存在</p>
+<h2 id="2、启动成功示例"><a href="#2、启动成功示例" class="headerlink" title="2、启动成功示例"></a>2、启动成功示例</h2><p><img src="/2022/05/24/Photo/a4.png"></p>
+<h1 id="使用介绍"><a href="#使用介绍" class="headerlink" title="使用介绍"></a>使用介绍</h1><p><img src="/2022/05/24/Photo/a1.png"></p>
+<h2 id="1、topic使用"><a href="#1、topic使用" class="headerlink" title="1、topic使用"></a>1、topic使用</h2><h3 id="1-topic创建"><a href="#1-topic创建" class="headerlink" title="1)topic创建"></a>1)topic创建</h3><p><img src="/2022/05/24/Photo/a5.png"></p>
+<h3 id="2-topic列表"><a href="#2-topic列表" class="headerlink" title="2)topic列表"></a>2)topic列表</h3><p><img src="/2022/05/24/Photo/a6.png"></p>
+<h3 id="3-sql查询"><a href="#3-sql查询" class="headerlink" title="3)sql查询"></a>3)sql查询</h3><p><img src="/2022/05/24/Photo/a2.png"></p>
+<h3 id="4）消息模拟发送"><a href="#4）消息模拟发送" class="headerlink" title="4）消息模拟发送"></a>4）消息模拟发送</h3><p><img src="/2022/05/24/Photo/a8.png"></p>
+<h3 id="5）主题配置"><a href="#5）主题配置" class="headerlink" title="5）主题配置"></a>5）主题配置</h3><p><img src="/2022/05/24/Photo/a9.png"></p>
+<h2 id="2、消费组列表"><a href="#2、消费组列表" class="headerlink" title="2、消费组列表"></a>2、消费组列表</h2><p><img src="/2022/05/24/Photo/a10.png"></p>
+<h2 id="3、节点"><a href="#3、节点" class="headerlink" title="3、节点"></a>3、节点</h2><h3 id="1-Zk-amp-kafka"><a href="#1-Zk-amp-kafka" class="headerlink" title="1) Zk&amp;kafka"></a>1) Zk&amp;kafka</h3><p><img src="/2022/05/24/Photo/a11.png"></p>
+<h3 id="2-集群显示及操作"><a href="#2-集群显示及操作" class="headerlink" title="2)集群显示及操作"></a>2)集群显示及操作</h3><p><img src="/2022/05/24/Photo/a12.png"></p>
+<h3 id="3-Zk客户端，可通过命令进行操作"><a href="#3-Zk客户端，可通过命令进行操作" class="headerlink" title="3) Zk客户端，可通过命令进行操作"></a>3) Zk客户端，可通过命令进行操作</h3><p><img src="/2022/05/24/Photo/a13.png"></p>
+<h2 id="用户及角色创建"><a href="#用户及角色创建" class="headerlink" title="用户及角色创建"></a>用户及角色创建</h2><h3 id="1）用户配置"><a href="#1）用户配置" class="headerlink" title="1）用户配置"></a>1）用户配置</h3><p><img src="/2022/05/24/Photo/a14.png"></p>
+<h3 id="2）角色配置"><a href="#2）角色配置" class="headerlink" title="2）角色配置"></a>2）角色配置</h3><p><img src="/2022/05/24/Photo/a15.png"></p>
+<h3 id="3）组织结构图"><a href="#3）组织结构图" class="headerlink" title="3）组织结构图"></a>3）组织结构图</h3><p><img src="/2022/05/24/Photo/a16.png"></p>
+<h2 id="6、可视化界面"><a href="#6、可视化界面" class="headerlink" title="6、可视化界面"></a>6、可视化界面</h2><p><img src="/2022/05/24/Photo/a17.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jingmu457.github.io/2022/06/16/%E3%80%8AEagle%E5%8A%9F%E8%83%BD%E3%80%8B/" data-id="cl4fz022p0000o8g4ctfvbpeu" data-title="《Eagle功能》" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Eagle/" rel="tag">Eagle</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/06/15/%E3%80%8Akafka-API%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E3%80%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">《kafka API使用方法》</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eagle/" rel="tag">Eagle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/" rel="tag">spark</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/16/%E3%80%8AEagle%E5%8A%9F%E8%83%BD%E3%80%8B/">《Eagle功能》</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/15/%E3%80%8Akafka-API%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E3%80%8B/">《kafka API使用方法》</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/15/%E3%80%8AKafka%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E3%80%8B/">《Kafka命令行操作》</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/15/%E3%80%8AKafka%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%8B/">《Kafka环境配置》</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/24/Photo/">Photo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
