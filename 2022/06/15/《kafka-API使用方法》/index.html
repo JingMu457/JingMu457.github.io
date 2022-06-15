@@ -69,7 +69,7 @@
       
         <p>一、生产者API</p>
 <p>Produce流程图</p>
-<p><img src="/css/images/Kafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8/image022.png" alt="producer流程图"></p>
+<p><img src="/css/images/Kafka/image022.png" alt="producer流程图"></p>
 <p>1.一个正常的生产逻辑需要具备以下几个步骤</p>
 <p>(1)配置生产者客户端参数及创建相应的生产者实例</p>
 <p>(2)构建待发送的消息</p>
@@ -79,7 +79,7 @@
 
 <p>创建一个maven工程</p>
 <p>并导入相关依赖</p>
-<p><img src="/css/images/Kafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8/image023.png" alt="img"></p>
+<p><img src="/css/images/Kafka/image023.png" alt="img"></p>
 <p>采用默认分区方式将消息散列的发送到各个分区当中</p>
 <p>（代码图片）</p>
 <p>Demo详细解释</p>
@@ -125,7 +125,7 @@
 <p>&#x2F;4.   异步发送(async )</p>
 <p>回调函数会在 producer 收到 ack 时调用,为异步调用,该方法有两个参数,分别是 RecordMetadata 和Exception,如果 Exception 为 null,说明消息发送成功,如果 Exception 不为 null,说明消息发送失败。</p>
 <p>注意:消息发送失败会自动重试,不需要我们在回调函数中手动重试。</p>
-<p><img src="/css/images/Kafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8/image024.png" alt="img"></p>
+<p><img src="/css/images/Kafka/image024.png" alt="img"></p>
 <p>二、消费者API</p>
 <p>&#x2F;1. 一个正常的消费逻辑需要具备以下几个步骤: </p>
 <p>(1)配置消费者客户端参数</p>
@@ -134,9 +134,9 @@
 <p>(4)拉取消息并消费; </p>
 <p>(5)提交消费位移 offset;</p>
 <p>(6)关闭消费者实例</p>
-<p>（代码图片）<img src="/css/images/Kafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8/image025.png" alt="img"></p>
-<p><img src="/css/images/Kafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8/image026.png" alt="img"></p>
-<p><img src="/css/images/Kafka%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%BA%94%E7%94%A8/image027.png" alt="屏幕截图 2022-05-15 090557"></p>
+<p>（代码图片）<img src="/css/images/Kafka/image025.png" alt="img"></p>
+<p><img src="/css/images/Kafka/image026.png" alt="img"></p>
+<p><img src="/css/images/Kafka/image027.png" alt="屏幕截图 2022-05-15 090557"></p>
 <p>三、Topic管理API</p>
 <p>一般情况下,我们都习惯使用 kafka-topic.sh 本来管理主题,如果希望将管理类的功能集成到公司内部的系统中,打造集管理、监控、运维、告警为一体的生态平台,那么就需要以程序调用 API 方式去实现。这种调用 API 方式实现管理主要利用 KafkaAdminClient 工具类KafkaAdminClient 不仅可以用来管理 broker、配置和 ACL (Access Control List),还可用来管理主题)它提供了以下方法:</p>
 <p>1.列出主题</p>
